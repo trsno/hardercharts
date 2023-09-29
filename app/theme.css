@@ -1,0 +1,172 @@
+:root {
+	color-scheme: light;
+	--light: var(--background);
+	--dark: var(--text);
+	--x-primary: var(--light);
+	--x-secondary: var(--light);
+	--x-accent: var(--light);
+}
+
+[data-theme$='-dark'] {
+	color-scheme: dark;
+	--light: var(--text);
+	--dark: var(--background);
+}
+
+[data-theme='light'],
+[data-theme='green'] {
+	--text: 37 50 50;
+	--background: 228 235 236;
+	--primary: 41 58 61;
+	--secondary: 200 218 218;
+	--accent: 87 123 127;
+	--x-secondary: var(--dark);
+}
+
+[data-theme='light-dark'],
+[data-theme='green-dark'] {
+	--text: 228 235 236;
+	--background: 37 50 50;
+	--primary: 41 58 61;
+	--secondary: 4 6 6;
+	--accent: 170 194 197;
+	--x-accent: var(--dark);
+}
+
+[data-theme='pink'] {
+	--text: 49 2 32;
+	--background: 255 250 253;
+	--primary: 249 119 203;
+	--secondary: 252 197 233;
+	--accent: 88 4 58;
+	--x-primary: var(--dark);
+}
+
+[data-theme='pink-dark'] {
+	--text: 255 250 253;
+	--background: 49 2 32;
+	--primary: 249 119 203;
+	--secondary: 39 2 26;
+	--accent: 234 11 156;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+[data-theme='brown'] {
+	--text: 36 25 15;
+	--background: 243 234 226;
+	--primary: 220 193 168;
+	--secondary: 236 216 177;
+	--accent: 145 101 59;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='brown-dark'] {
+	--text: 243 234 226;
+	--background: 36 25 15;
+	--primary: 220 193 168;
+	--secondary: 4 3 1;
+	--accent: 211 177 146;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+
+[data-theme='pinkv2'] {
+	--text: 22 2 29;
+	--background: 246 221 253;
+	--primary: 248 140 219;
+	--secondary: 250 178 195;
+	--accent: 211 13 60;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='pinkv2-dark'] {
+	--text: 246 221 253;
+	--background: 22 2 29;
+	--primary: 248 140 219;
+	--secondary: 19 1 5;
+	--accent: 247 130 157;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+
+[data-theme='greenv2'] {
+	--text: 35 11 20;
+	--background: 250 239 243;
+	--primary: 67 199 150;
+	--secondary: 227 244 247;
+	--accent: 27 90 35;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='greenv2-dark'] {
+	--text: 250 239 243;
+	--background: 35 11 20;
+	--primary: 67 199 150;
+	--secondary: 15 46 51;
+	--accent: 70 200 88;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+
+[data-theme='brownv2'] {
+	--text: 43 3 18;
+	--background: 255 255 255;
+	--primary: 243 98 79;
+	--secondary: 253 245 232;
+	--accent: 119 76 8;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='brownv2-dark'] {
+	--text: 255 255 255;
+	--background: 43 3 18;
+	--primary: 243 98 79;
+	--secondary: 71 46 6;
+	--accent: 241 163 39;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+
+[data-theme='pinkgreen'] {
+	--text: 34 11 31;
+	--background: 244 221 240;
+	--primary: 171 227 180;
+	--secondary: 196 231 237;
+	--accent: 19 57 25;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='pinkgreen-dark'] {
+	--text: 244 221 240;
+	--background: 34 11 31;
+	--primary: 171 227 180;
+	--secondary: 6 17 19;
+	--accent: 57 172 74;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}
+
+[data-theme='purple'] {
+	--text: 19 11 34;
+	--background: 225 217 242;
+	--primary: 192 175 228;
+	--secondary: 240 235 248;
+	--accent: 52 32 96;
+	--x-primary: var(--dark);
+	--x-secondary: var(--dark);
+}
+
+[data-theme='purple-dark'] {
+	--text: 225 217 242;
+	--background: 19 11 34;
+	--primary: 192 175 228;
+	--secondary: 33 19 56;
+	--accent: 120 83 198;
+	--x-primary: var(--dark);
+	--x-accent: var(--dark);
+}

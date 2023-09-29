@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'theme.css';
+
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		@apply bg-background text-text;
+	}
+}
+
+:root {
+	--black: 0 0 0;
+	--white: 255 255 255;
+	--progress: 0;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(600px, 1fr) minmax(300px, 1fr));
+}
+
+@media (max-width: 1023px) {
+	.container {
+		grid-template-columns: repeat(auto-fit, minmax(100%, 600px));
+	}
+}
+
+.track:not(.playing) {
+	--progress: 0;
+}
+
+.track:hover + .track,
+.track.playing + .track {
+	border-top-color: transparent;
+}
+
+main .playing:has(+ :hover),
+.track:has(+ .playing):hover {
+	@apply rounded-b-none;
+}
+
+main .playing:has(+ :hover) + .track,
+.track:hover + .playing {
+	@apply rounded-t-none;
+}
+
+.scrollText {
+	animation: scrollText linear calc(var(--wDiff) * 150ms) infinite;
+}
+
+.track:hover .scrollText {
+	animation-play-state: paused;
+}
+
+@keyframes scrollText {
+	0%,
+	90% {
+		translate: 0;
+	}
+	45%,
+	55% {
+		translate: calc(var(--wDiff) * -1px);
+	}
+}
+.progress:before,
+.progress:after {
+	@apply absolute inset-0 content-[''];
+}
+
+.progress:before {
+	background: conic-gradient(rgb(var(--lightVibrant)) calc(var(--progress) * 1%), rgb(var(--darkVibrant)) 0);
+}
+
+.progress:after {
+	@apply inset-1 rounded bg-darkVibrant;
+}
+div#likeBtn {
+	--heart-fill: ellipse(46% 46% at 50% 50%);
+	width: 32px;
+	height: 32px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	clip-path: var(--heart-fill);
+}
+
+#likeBtn:after,
+#likeBtn:before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: rgb(var(--lightVibrant));
+	pointer-events: none;
+	z-index: 1;
+}
+
+#likeBtn:hover:before,
+#likeBtn:hover:after {
+	background-color: rgb(var(--darkVibrant));
+}
+
+#likeBtn:after {
+	mix-blend-mode: color;
+}
+#likeBtn:before {
+	mix-blend-mode: darken;
+}
+
+#likeBtn:hover:before {
+	mix-blend-mode: exclusion;
+}
+
+#likeBtn > iframe {
+	position: absolute;
+	width: 226px;
+	height: 232px;
+	bottom: -44px;
+	right: 77px;
+	scale: 2;
+}
+
+#likeBtn:hover > iframe {
+	transform: translate(-0.5px, -0.5px);
+}

@@ -1,0 +1,68 @@
+
+main > div > div {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	border-bottom: 1px solid blue;
+	width: 385px;
+	height: 1.5em;
+	overflow: hidden;
+}
+.red {
+	background: red;
+}
+.audio {
+	height: max-content;
+}
+main > div > div > div {
+	width: max-content;
+}
+
+main > div > div > div:first-child {
+	width: 100%;
+}
+
+main > div {
+	border: 1px solid blue;
+	width: max-content;
+	margin: 1em;
+	display: inline-block;
+}
+
+.empty {
+	background: #f003;
+	display: list-item;
+	float: left;
+	list-style: number;
+}
+
+.complete:not(:hover) {
+	height: 1.5em;
+	/* overflow: hidden; */
+	background: #0f0;
+}
+
+input:not(:checked) ~ .empty:not(:hover) > div:not(.red) {
+	display: none;
+}
+
+iframe {
+	display: none;
+}
+
+input {
+	zoom: 5;
+}
+
+input:checked ~ div {
+	height: max-content !important;
+}
+
+input:checked ~ div > div {
+	height: max-content;
+}
+
+input:checked ~ div iframe {
+	display: block;
+	width: 100%;
+	height: 232px;
+}
