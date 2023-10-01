@@ -4,11 +4,13 @@ export async function GET(request: NextRequest) {
 	const path = request.nextUrl.searchParams.get('path');
 	const tag = request.nextUrl.searchParams.get('tag');
 	if (path) {
-		revalidatePath(path);
+		console.log('path:', path);
 		if (path === '/all') {
 			revalidatePath('/');
 			revalidatePath('/update');
 			revalidatePath('/check');
+		} else {
+			revalidatePath(path);
 		}
 		return NextResponse.json({ revalidated: true, now: Date.now(), path, message: `${path} revalidated` });
 	}

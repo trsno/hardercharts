@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
 	console.time('⚜  Getting new Tracks');
 	const tracks = await scrapeTracks();
 	console.timeEnd('⚜  Getting new Tracks');
+	console.log(`   loaded [ ${Object.keys(tracks).length} ] tracks`);
 
 	console.time('⚜  Getting db Tracks');
 	const dbTracks = await getTracksForUpdate();
@@ -41,6 +42,7 @@ export async function GET(req: NextRequest) {
 		.filter(id => tracks[id].pos.curr !== dbTrackObj[id].pos.curr)
 		.filter(id => !emptyValueTracks.includes(id));
 	console.timeEnd('⚜  Getting db Tracks');
+	console.log(`   loaded [ ${dbTracks.length} ] tracks`);
 
 	console.time('⚜  Updating Position');
 	const updatePosQueue = [];
