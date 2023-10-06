@@ -185,5 +185,5 @@ export async function deleteAsset(filename: string) {
 }
 
 export async function deleteDocument(id: string) {
-	writeClient.delete(id).then(console.log).catch(console.error);
+	return await writeClient.delete(id).then(console.log).catch(console.error);
 }

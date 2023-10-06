@@ -17,10 +17,7 @@ export default async function postTracks(dbTracks: { [x: string]: Track }, track
 			console.timeEnd(`   ⬆ [ ${id}.${type === 'file' ? 'mp3' : 'jpg'} ] uploaded`);
 		};
 
-		if (!dbTrack.color || !(dbTrack.cover as string)?.includes('cdn.sanity')) await uploadFn(id, cover as string, 'image');
-		if (!(dbTrack.audio as string)?.includes('cdn.sanity')) await uploadFn(id, audio as string, 'file');
-
-		const doc = {
+		await setTrack({
 			_id: id,
 			artist,
 			title,
@@ -31,9 +28,10 @@ export default async function postTracks(dbTracks: { [x: string]: Track }, track
 			pos,
 			label,
 			isHS
-		};
+		});
 
-		await setTrack(doc);
+		if (!dbTrack.color || !(dbTrack.cover as string)?.includes('cdn.sanity')) await uploadFn(id, cover as string, 'image');
+		if (!(dbTrack.audio as string)?.includes('cdn.sanity')) await uploadFn(id, audio as string, 'file');
 	};
 
 	const arr = Object.keys(tracks);
