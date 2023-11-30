@@ -1,14 +1,6 @@
 import { getTracksForUpdate } from '@/sanity/sanity-utils';
 import { NextRequest, NextResponse } from 'next/server';
 
-const requiredEnvVars = ['CLIENTID', 'CLIENTSECRET', 'REDIRECTURI', 'AUTHORIZATIONCODE', 'PLAYLISTHARDSTYLE', 'PLAYLISTHARDCORE'];
-
-for (const envVar of requiredEnvVars) {
-	if (!process.env[envVar]) {
-		throw new Error(`Environment variable ${envVar} is missing`);
-	}
-}
-
 const fetchData = async (url: string, options: RequestInit) => {
 	try {
 		const response = await fetch(url, options);
@@ -27,23 +19,49 @@ const fetchData = async (url: string, options: RequestInit) => {
 	}
 };
 
-const getToken = async () => {
-	const tokenUrl = 'https://accounts.spotify.com/api/token';
-	const tokenData = {
-		grant_type: 'authorization_code',
-		code: process.env.AUTHORIZATIONCODE || '',
-		redirect_uri: process.env.REDIRECTURI || '',
-		client_id: process.env.CLIENTID || '',
-		client_secret: process.env.CLIENTSECRET || ''
-	};
+// const getToken = async () => {
+// 	const tokenUrl = 'https://accounts.spotify.com/api/token';
+// 	const tokenData = {
+// 		grant_type: 'authorization_code',
+// 		code: process.env.AUTHORIZATIONCODE,
+// 		redirect_uri: process.env.REDIRECTURI,
+// 		client_id: process.env.CLIENTID,
+// 		client_secret: process.env.CLIENTSECRET
+// 	};
 
-	return await fetchData(tokenUrl, {
+// 	return await fetchData(tokenUrl, {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/x-www-form-urlencoded'
+// 		},
+// 		body: new URLSearchParams(tokenData)
+// 	});
+// };
+
+const refreshAccessToken = async (refresh_token: string) => {
+	const tokenUrl = 'https://accounts.spotify.com/api/token';
+	const basicAuth = btoa(`${process.env.CLIENTID}:${process.env.CLIENTSECRET}`);
+
+	const requestBody = new URLSearchParams();
+	requestBody.append('grant_type', 'refresh_token');
+	requestBody.append('refresh_token', refresh_token);
+
+	const options = {
 		method: 'POST',
 		headers: {
+			Authorization: `Basic ${basicAuth}`,
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
-		body: new URLSearchParams(tokenData)
-	});
+		body: requestBody
+	};
+
+	try {
+		const result = await fetchData(tokenUrl, options);
+		console.log('Token refresh successful:', result);
+		return result;
+	} catch (error) {
+		console.error('Token refresh failed:', error);
+	}
 };
 
 const addTrackToPlaylist = async (accessToken: string, playlistId: string, trackUris: string[]) => {
@@ -120,8 +138,13 @@ const arraysEqual = (arr1: string[], arr2: string[]) => arr1.length === arr2.len
 
 const main = async () => {
 	try {
-		const tokenData = await getToken();
-		const accessToken = tokenData.access_token;
+		// const tokenData = await getToken();
+
+		// const refreshToken = tokenData.refresh_token;
+		// const accessToken = tokenData.access_token;
+		// console.log(refreshToken);
+
+		const accessToken = (await refreshAccessToken(process.env.REFRESH_TOKEN!)).access_token;
 
 		// Retrieve dbTracks from getTracksForUpdate
 		const dbTracks = (await getTracksForUpdate())
