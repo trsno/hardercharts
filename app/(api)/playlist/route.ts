@@ -139,10 +139,8 @@ const arraysEqual = (arr1: string[], arr2: string[]) => arr1.length === arr2.len
 const main = async () => {
 	try {
 		// const tokenData = await getToken();
-
 		// const refreshToken = tokenData.refresh_token;
 		// const accessToken = tokenData.access_token;
-		// console.log(refreshToken);
 
 		const accessToken = (await refreshAccessToken(process.env.REFRESH_TOKEN!)).access_token;
 
