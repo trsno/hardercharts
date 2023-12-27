@@ -112,15 +112,15 @@ div#likeBtn {
 	mix-blend-mode: exclusion;
 }
 
-#likeBtn > iframe {
+#likeBtn>iframe {
 	position: absolute;
 	width: 226px;
 	height: 232px;
-	bottom: -44px;
-	right: 77px;
-	scale: 2;
+	bottom: -49px;
+	right: 63px;
+	scale: 1.8;
 }
 
 #likeBtn:hover > iframe {
-	transform: translate(-0.5px, -0.5px);
+	transform: translate(-.5px, .5px);
 }
