@@ -116,6 +116,8 @@ const removeTracksFromPlaylist = async (accessToken: string, playlistId: string,
 };
 
 const reorderPlaylistTracks = async (accessToken: string, playlistId: string, newTrackOrder: string[]) => {
+	const uniqueTrackOrder = Array.from(new Set(newTrackOrder));
+
 	const playlistUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
 	const headers = {
 		Authorization: `Bearer ${accessToken}`,
@@ -123,10 +125,10 @@ const reorderPlaylistTracks = async (accessToken: string, playlistId: string, ne
 	};
 
 	const data = {
-		uris: newTrackOrder.map(trackId => `spotify:track:${trackId}`)
+		uris: uniqueTrackOrder.map(trackId => `spotify:track:${trackId}`)
 	};
 
-	console.log(`reordering playlist [${playlistId}]`);
+	console.log(`Reordering playlist [${playlistId}]`);
 	return await fetchData(playlistUrl, {
 		method: 'PUT',
 		headers,
