@@ -87,7 +87,7 @@ export default async function Home() {
 								</svg>
 							</div>
 						</div>
-						<div className='relative overflow-hidden rounded-lg border-2 border-darkVibrant aspect-square bg-darkVibrant duration-100 ease-out group-hover:shadow-md group-hover:shadow-darkMuted group-[.playing]:shadow-md group-[.playing]:shadow-darkMuted xs:w-20 max-xs:row-span-2'>
+						<div className='relative aspect-square overflow-hidden rounded-lg border-2 border-darkVibrant bg-darkVibrant duration-100 ease-out group-hover:shadow-md group-hover:shadow-darkMuted group-[.playing]:shadow-md group-[.playing]:shadow-darkMuted xs:w-20 max-xs:row-span-2'>
 							<div className='progress absolute inset-0 grid cursor-pointer place-items-center text-lightVibrant opacity-0 duration-300 ease-out group-hover:opacity-80 group-hover:hover:opacity-90 group-[.playing]:opacity-80 group-[.playing]:hover:opacity-90'>
 								<svg
 									className='relative z-10 w-8 group-[.playing:not(.paused)]:hidden'
@@ -155,11 +155,27 @@ export default async function Home() {
 		<div className='container mx-auto gap-x-4 gap-y-16 p-4 max-xl:px-2'>
 			<main className=''>
 				<section id='hardstyle'>
-					<h1 className='my-4 text-3xl font-bold max-xs:text-2xl'>Hardstyle</h1>
+					<h1 className='my-4 text-3xl font-bold max-xs:text-2xl'>
+						Hardstyle
+						<a
+							className='ml-4 text-sm font-normal text-green-600 underline dark:text-green-400'
+							href='https://open.spotify.com/playlist/61z9WHRPcjL6GZY9Rww1rq'
+							target='_blank'>
+							Spotify 🡕
+						</a>
+					</h1>
 					<div>{renderTracks(HS)}</div>
 				</section>
 				<section id='hardcore'>
-					<h1 className='my-4 text-3xl font-bold max-xs:text-2xl'>Hardcore</h1>
+					<h1 className='my-4 text-3xl font-bold max-xs:text-2xl'>
+						Hardcore
+						<a
+							className='ml-4 text-sm font-normal text-green-600 underline dark:text-green-400'
+							href='https://open.spotify.com/playlist/5uGb1fPv2UZQSED2EJM8bY'
+							target='_blank'>
+							Spotify 🡕
+						</a>
+					</h1>
 					<div>{renderTracks(HC)}</div>
 				</section>
 			</main>
