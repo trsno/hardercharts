@@ -77,6 +77,8 @@ export async function GET(req: NextRequest) {
 		if (!emptyValueTracks.includes(id) && dbTracksIDs.includes(id)) delete tracks[id];
 	});
 
+	// const toDelete = dbTracks.filter(track => track.isHS).map(track => track._id)
+
 	console.log('🎲 tracks to Process:', Object.keys(tracks).length);
 	emptyValueTracks.map(id => {
 		const track = dbTrackObj[id];
