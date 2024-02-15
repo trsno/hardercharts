@@ -27,7 +27,7 @@ function scrape(data: string, isHS: boolean) {
 
 			const titleMix = (titleText: string) => {
 				const MixesRemove = ['Original Mix', 'Extended Mix', 'Pro Mix'];
-				titleText = titleText.replace(new RegExp(`\\s*\\((${MixesRemove.join('|')})\\)`, 'gi'), '').trim();
+				titleText = titleText.replace(new RegExp(`\\s*\\((${MixesRemove.join('|')})\\)`, 'gi'), '').trim().replace(/\s+/g, ' ');
 				const mix = titleText.match(/\(([^)]+)\)/);
 				const title = titleText.replace(/\([^)]+\)/g, '');
 				return [mix ? mix[1] : null, title];

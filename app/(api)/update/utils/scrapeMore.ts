@@ -6,7 +6,7 @@ export default async function scrapeMore(dbTracks: { [x: string]: Track }, track
 			const track = tracks[id];
 			const dbTrack = dbTracks[id] ?? track;
 			if (!track.url) return;
-			if (track.isHS && (!dbTrack.releaseDate || !dbTrack.label || !dbTrack.audio)) {
+			if (track.isHS && (!dbTrack.releaseDate || !dbTrack.label || !(dbTrack.audio as string)?.includes('cdn.sanity'))) {
 				const data = await fetch(track.url);
 				const $ = cheerio.load(await data.text());
 				const label = $('.extraInfo a.link.label').text();

@@ -78,6 +78,7 @@ export async function GET(req: NextRequest) {
 	});
 
 	// const toDelete = dbTracks.filter(track => track.isHS).map(track => track._id)
+	// const toDelete = dbTracks.map(track => track._id)
 
 	console.log('🎲 tracks to Process:', Object.keys(tracks).length);
 	emptyValueTracks.map(id => {

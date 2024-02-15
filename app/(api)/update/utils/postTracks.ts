@@ -6,7 +6,6 @@ export default async function postTracks(dbTracks: { [x: string]: Track }, track
 		const track = tracks[id];
 		const dbTrack = dbTracks[id] ?? track;
 		const { artist, title, mix, cover, audio, spotify, canvas, releaseDate, label, isHS, pos } = track;
-
 		const uploadFn = async (id: string, url: string, type: 'file' | 'image') => {
 			console.time(`   ⬆ [ ${id}.${type === 'file' ? 'mp3' : 'jpg'} ] uploaded`);
 			const fileBuffer = await axios
