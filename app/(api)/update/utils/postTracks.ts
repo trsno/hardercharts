@@ -33,7 +33,6 @@ export default async function postTracks(dbTracks: { [x: string]: Track }, track
 		if (!dbTrack.color || !(dbTrack.cover as string)?.includes('cdn.sanity')) await uploadFn(id, cover as string, 'image');
 		if (!(dbTrack.audio as string)?.includes('cdn.sanity')) await uploadFn(id, audio as string, 'file');
 	};
-
 	const arr = Object.keys(tracks);
 	const parallelLimit = 20;
 	const taskQueue = [];

@@ -33,22 +33,22 @@ function scrape(data: string, isHS: boolean) {
 				return [mix ? mix[1] : null, title];
 			};
 			for (let i = 0; i < 40; i++) {
-				const element = HS ? $('#column-middle .top40 + table.list tr:odd')[i] : $('.panel-body .release-list-item')[i];
+				const element = HS ? $('.chart .track')[i] : $('.panel-body .release-list-item')[i];
 				const url = HS
-					? String($(element).find('.num > a').attr('href'))
+					? 'https://hardstyle.com'+String($(element).find('a.number').attr('href'))
 					: String($(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-title > a').attr('href'));
-				const id = HS ? String(url?.split('/').pop()) : String(url?.split('/').pop());
-				const HSmix = $(element).find('.text-1 > a > b:nth-of-type(2)');
-				const artistElement = HS ? $(element).find('.text-1 > a > span') : $(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-artist');
+				const id = HS ? String($(element).data('track-id')) : String(url?.split('/').pop());
+				const HSmix = $(element).find('.trackContent a.linkTitle');
+				const artistElement = HS ? $(element).find('.artists') : $(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-artist');
 
 				const titleText = HS
-					? `${$(element).find('.text-1 > a > b:first-child').text()}${HSmix.length ? '(' + HSmix.text() + ')' : ''}`
+					? `${$(element).find('.trackTitle').text()}${HSmix.length ? '(' + HSmix.text() + ')' : ''}`
 					: $(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-title').text();
 				const [mix, title] = titleMix(titleText);
 				const artist = HS
 					? {
 							full: artistElement.text(),
-							list: artistElement.text().split(', ')
+							list: Array.from(artistElement.find('a').map((i,el)=>$(el).text().trim()))
 					  }
 					: {
 							full: artistElement.text(),
@@ -57,13 +57,12 @@ function scrape(data: string, isHS: boolean) {
 							})
 					  };
 				const spectrum = HS
-					? 'https://spectrums.content.hardstyle.com/spectrums/0/' + id?.replace(/(.{3})0?/, '$1/') + '/spectrum.png'
+					? 'https://hardstyle.com/waveform/375/' + id
 					: 'https://content.hardtunes.com/products/' + id + '/spectrum.png';
 				const cover = HS
-					? 'https:' + $(element).find('.image > a > img').attr('src')?.replace('/48x48/', '/500x500/')
+					? 'https://hardstyle.com' + $(element).find('.innerImage>img').attr('src')?.replace('/250x250/', '/500x500/')
 					: $(element).find('.release-list-item-artwork > a > img').attr('data-src')?.replace('/248x248.jpg', '/original.jpg');
-				const audio = HS ? 'https://preview.content.hardstyle.com/index2.php?id=' + id : null;
-
+				const audio = HS ? 'https://hardstyle.com/track_preview/375/' + id : null;
 				const releaseDateElement = $(element).find('.release-list-item-info > .release-list-item-info-secondary > .release-list-item-release-date');
 				let releaseDate = null;
 				try {
