@@ -38,7 +38,7 @@ function scrape(data: string, isHS: boolean) {
 					? 'https://hardstyle.com'+String($(element).find('a.number').attr('href'))
 					: String($(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-title > a').attr('href'));
 				const id = HS ? String($(element).data('track-id')) : String(url?.split('/').pop());
-				const HSmix = $(element).find('.trackContent a.linkTitle');
+				const HSmix = $(element).find('.trackContent a.linkTitle:not(.trackTitle)');
 				const artistElement = HS ? $(element).find('.artists') : $(element).find('.release-list-item-info > .release-list-item-info-primary > .release-list-item-artist');
 
 				const titleText = HS
@@ -47,7 +47,7 @@ function scrape(data: string, isHS: boolean) {
 				const [mix, title] = titleMix(titleText);
 				const artist = HS
 					? {
-							full: artistElement.text(),
+							full: artistElement.text().replace(/\s+/g, ' '),
 							list: Array.from(artistElement.find('a').map((i,el)=>$(el).text().trim()))
 					  }
 					: {
@@ -62,7 +62,7 @@ function scrape(data: string, isHS: boolean) {
 				const cover = HS
 					? 'https://hardstyle.com' + $(element).find('.innerImage>img').attr('src')?.replace('/250x250/', '/500x500/')
 					: $(element).find('.release-list-item-artwork > a > img').attr('data-src')?.replace('/248x248.jpg', '/original.jpg');
-				const audio = HS ? 'https://hardstyle.com/track_preview/375/' + id : null;
+				const audio = null // HS ? 'https://hardstyle.com/track_preview/375/' + id : null;
 				const releaseDateElement = $(element).find('.release-list-item-info > .release-list-item-info-secondary > .release-list-item-release-date');
 				let releaseDate = null;
 				try {

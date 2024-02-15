@@ -6,7 +6,7 @@ export default async function scrapeMore(dbTracks: { [x: string]: Track }, track
 			const track = tracks[id];
 			const dbTrack = dbTracks[id] ?? track;
 			if (!track.url) return;
-			if (track.isHS && (!dbTrack.releaseDate || !dbTrack.label)) {
+			if (track.isHS && (!dbTrack.releaseDate || !dbTrack.label || !dbTrack.audio)) {
 				const data = await fetch(track.url);
 				const $ = cheerio.load(await data.text());
 				const label = $('.extraInfo a.link.label').text();
@@ -16,7 +16,7 @@ export default async function scrapeMore(dbTracks: { [x: string]: Track }, track
 				if (!label || !releaseDate) throw new Error(`Cant get Metadata for ${id}`);
 				track.label = label;
 				track.releaseDate = new Date(releaseDate).toISOString();
-
+				track.audio = JSON.parse($('script[type="application/ld+json"]:first').text()).audio
 				console.log(`[ ${id} ] ➡ ${label}, ${releaseDate}`);
 			}
 
